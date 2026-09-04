@@ -1,5 +1,26 @@
 # Routing
 
+## Router API
+
+Class: `features/router.ts`. Types: `types/router.d.ts`.
+
+| Piece | Role |
+|-------|------|
+| `t_Route` | `path`, `name`, `mount(params)`, optional `unmount()` |
+| `t_RouteParams` | Named params from patterns like `/items/:id` |
+| `t_RouterOptions` | `routes`, `fallbackPath`, optional `onChange` |
+| `start()` | Bind `popstate` + click listener; render current URL |
+| `navigate(to, replace?)` | `pushState` / `replaceState`, then mount match |
+| `match(pathname)` | First table hit via `matchPattern` |
+
+### Behaviour
+
+- **History API** only (not hash). Same-origin left-clicks on `<a>` are intercepted; modifier keys, `target`, `download`, hash-only, and cross-origin links keep the browser default.
+- On match change: call previous route `unmount` (if any), then `mount`, then `onChange`.
+- Unknown path → `fallbackPath`. Boot uses `replaceState` so `/nope` does not leave a history entry.
+
+Wire-up lives in `main.ts`: build the shell, pass the route table into `new Router({…})`, call `router.start()`.
+
 ## Routes
 
 | Path | Name | Guard |
