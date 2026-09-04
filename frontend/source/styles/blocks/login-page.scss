@@ -12,7 +12,29 @@
     margin-bottom: var(--space-md);
   }
 
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    color: var(--color-muted);
+  }
+
+  &__input {
+    padding: var(--space-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    border-radius: 0.27vw;
+  }
+
   &__button {
+    align-self: flex-start;
     background: var(--color-accent);
     color: #1a1208;
     border: none;

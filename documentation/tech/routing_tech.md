@@ -68,13 +68,28 @@ Return early from `mount` when the guard redirects.
 
 Path matching ignores `?query`. Pages that need it read `window.location.search` in `init` (example: `/search?q=hello` → search page shows the query). `navigate('/search?q=…')` preserves search via the History API URL.
 
-## appPath
+## appPath / subdirectory deploy
 
-All router paths and links go through `appPath()` from `features/app-base.ts`.
+`initAppBase()` reads Vite’s `import.meta.env.BASE_URL` (from `VITE_BASE_PATH` in `vite.config.ts`). `appPath('/feed')` returns `/feed` at host root, or `/demo/feed` when base is `/demo/`.
+
+**Rules**
+
+- Every route `path`, `fallbackPath`, `navigate(...)`, and in-app `<a href>` must use `appPath(...)`.
+- Page `ctx.navigate('/…')` is already wrapped with `appPath` in `main.ts`.
+- New top-level segments belong in `SPA_ROUTE_SEGMENTS` inside `app-base.ts` if you rely on pathname derivation helpers.
+
+**How to test**
+
+```bash
+VITE_BASE_PATH=/demo/ npm run build
+npm run preview
+```
+
+Open the preview URL under `/demo/` (e.g. `http://127.0.0.1:4173/demo/`). Refresh on a deep link such as `/demo/items/1` — the SPA should still load.
 
 ## Adding a page
 
 1. Create `blocks/foo-page.ts` with `t_PageBlock`
 2. Add SCSS `blocks/foo-page.scss`, import in `main.scss`
 3. Register route in `main.ts` with guard as needed
-4. Add nav link in `app-header.ts` if surfaced in header
+4. Add a nav link with `href` from `appPath('…')` in `app-header.ts` if surfaced in header

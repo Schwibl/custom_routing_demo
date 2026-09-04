@@ -1,21 +1,47 @@
 # Architecture
 
-## Flow
+## Module diagram
 
 ```
-main.ts
-  ├── bootstrap shell (.app, .app-header, .app__main, .app__footer)
-  ├── Router (features/router.ts)
-  └── route table
-        ├── guards (session.ts)
-        └── page blocks (blocks/*-page.ts)
+frontend/index.html (#app)
+        │
+        ▼
+main.ts ── imports styles, builds shell, route table, guards
+        │
+        ├── features/app-base.ts     appPath() / BASE_URL
+        ├── features/session.ts      demo-session localStorage
+        ├── features/router.ts       History API match + navigate
+        ├── blocks/app-header.ts     persistent nav
+        └── blocks/*-page.ts         getMarkup + init (+ cleanup)
+                │
+                ▼
+           .app__main outlet
 ```
+
+## Data flow
+
+```
+click <a> / navigate() / popstate
+        │
+        ▼
+Router.match(pathname) → t_Route + t_RouteParams
+        │
+        ├── previous cleanup / route.unmount()
+        ├── route.mount(params) → guards → mountPage(block)
+        │         ├── block.getMarkup() → .app__main
+        │         └── block.init(ctx) → optional destroy fn
+        └── onChange → .app--auth + header active / logout
+```
+
+**Demo flow:** login (guest) → Continue → `login()` + `/feed` → items → `/items/:id` → search `?q=` → map-demo (timer) → leave route (console: destroy) → Logout.
+
+**History:** in-app links use `pushState`. Guards and root redirect use `replaceState` so failed auth and `/` do not pollute the stack. Browser back from an item returns to the items list.
 
 ## Shell
 
 - `.app` — flex column chrome; pages only replace `.app__main`
-- `.app-header` — Feed / Items / Search / Login–Logout (`href` + `data-route`)
-- `.app--auth` — guest layout; hides `.app-header` (login). Toggle in DevTools to verify.
+- `.app-header` — Feed / Items / Search / Login–Logout (`appPath` href + `data-route`)
+- `.app--auth` — guest layout; hides `.app-header` (login)
 
 ## Router
 
@@ -25,7 +51,7 @@ Navigation uses `pushState` / `replaceState`. Same-origin `<a>` clicks are inter
 
 ## Page blocks
 
-Each page exports `getMarkup()` and `init({ navigate, params })`. Optional cleanup function clears timers or listeners.
+Each page exports `getMarkup()` and `init({ navigate, params })`. Optional cleanup return clears timers or listeners (map-demo destroy proof).
 
 ## Session
 

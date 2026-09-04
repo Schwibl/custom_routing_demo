@@ -7,4 +7,13 @@
     color: var(--color-muted);
     max-width: 67vw;
   }
+
+  &__links {
+    margin-top: var(--space-md);
+    padding-left: var(--space-md);
+  }
+
+  &__link {
+    color: var(--color-accent);
+  }
 }

@@ -14,10 +14,24 @@ Copy `.env.example` to `.env` if needed.
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `VITE_BASE_PATH` | `/` | Asset and route base for subdirectory deploy |
+| `VITE_BASE_PATH` | `/` | Vite `base` + `import.meta.env.BASE_URL` for subdirectory deploy |
 
-Test subdirectory: `VITE_BASE_PATH=/demo/ npm run build` then `npm run preview`.
+## Subdirectory deploy
+
+1. Build with a trailing-slash base:
+
+```bash
+VITE_BASE_PATH=/demo/ npm run build
+npm run preview
+```
+
+2. Open the app under that prefix (preview serves assets from `/demo/`).
+3. Confirm header links and refresh on `/demo/feed` or `/demo/items/1` stay in the SPA.
+
+Dev with a base: `VITE_BASE_PATH=/demo/ npm run dev`, then visit `http://localhost:5173/demo/`.
+
+Route helpers: `appPath()` in `features/app-base.ts` — see [`routing_tech.md`](../tech/routing_tech.md).
 
 ## SPA fallback
 
-Vite dev and preview serve `index.html` for unknown paths — deep links work on refresh.
+Vite dev and preview serve `index.html` for unknown paths — deep links work on refresh. Static hosts (nginx, GitHub Pages) need an equivalent rewrite; a Pages deploy script is not in this repo yet.

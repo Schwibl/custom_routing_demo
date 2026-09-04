@@ -26,7 +26,16 @@
     border-radius: 0.27vw;
   }
 
-  &__result {
+  &__summary {
     color: var(--color-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  &__results {
+    padding-left: var(--space-md);
+  }
+
+  &__hit {
+    margin-bottom: var(--space-xs);
   }
 }

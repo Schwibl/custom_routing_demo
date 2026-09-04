@@ -4,7 +4,9 @@ import path from 'path';
 // Vite config — frontend/ is the dev root; output goes to repo dist/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const base = env.VITE_BASE_PATH || '/';
+  const rawBase = env.VITE_BASE_PATH || '/';
+  // Vite expects a trailing slash for non-root bases
+  const base = rawBase === '/' ? '/' : rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
   return {
     root: 'frontend',
