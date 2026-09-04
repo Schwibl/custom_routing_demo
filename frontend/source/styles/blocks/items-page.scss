@@ -1,0 +1,18 @@
+.items-page {
+  &__title {
+    font-size: var(--font-xl);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    margin-bottom: var(--space-sm);
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+}

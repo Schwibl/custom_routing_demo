@@ -1,0 +1,19 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    flex: 1;
+    padding: var(--space-lg) var(--space-md);
+    max-width: 120vw;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  &--auth {
+    .app-header {
+      display: none;
+    }
+  }
+}

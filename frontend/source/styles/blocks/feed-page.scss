@@ -1,0 +1,10 @@
+.feed-page {
+  &__title {
+    font-size: var(--font-xl);
+  }
+
+  &__text {
+    color: var(--color-muted);
+    max-width: 67vw;
+  }
+}

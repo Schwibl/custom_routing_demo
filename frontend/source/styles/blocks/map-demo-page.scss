@@ -1,0 +1,14 @@
+.map-demo-page {
+  &__title {
+    font-size: var(--font-xl);
+  }
+
+  &__text {
+    color: var(--color-muted);
+  }
+
+  &__tick {
+    font-size: var(--font-lg);
+    font-variant-numeric: tabular-nums;
+  }
+}

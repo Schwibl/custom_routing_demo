@@ -1,0 +1,23 @@
+.login-page {
+  max-width: 53vw;
+  margin: 0 auto;
+
+  &__title {
+    font-size: var(--font-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  &__text {
+    color: var(--color-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  &__button {
+    background: var(--color-accent);
+    color: #1a1208;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 0.27vw;
+    font-weight: 600;
+  }
+}

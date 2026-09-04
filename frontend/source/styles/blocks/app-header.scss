@@ -1,0 +1,45 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+
+  &__brand {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  &__nav {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: var(--color-muted);
+    background: none;
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+
+    &--active {
+      color: var(--color-accent);
+    }
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__logout {
+    color: var(--color-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 0.27vw;
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
