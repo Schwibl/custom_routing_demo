@@ -105,7 +105,6 @@ function bootstrap(): void {
           return;
         }
 
-        document.querySelector('.app')?.classList.add('app--auth');
         mountPage({
           ...loginPage,
           init(ctx) {
@@ -129,7 +128,6 @@ function bootstrap(): void {
           return;
         }
 
-        document.querySelector('.app')?.classList.remove('app--auth');
         mountPage(feedPage);
       },
     },
@@ -189,6 +187,9 @@ function bootstrap(): void {
     routes,
     fallbackPath: appPath('/login'),
     onChange: (_path, name) => {
+      // Guest chrome: hide header on login; show on authenticated routes
+      document.querySelector('.app')?.classList.toggle('app--auth', name === 'login');
+
       setHeaderActive(navNameForRoute(name), isAuthenticated(), () => {
         logout();
         syncHeaderAuth(false);

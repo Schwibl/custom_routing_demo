@@ -1,4 +1,5 @@
-const SESSION_KEY = 'portfolio-routing-session';
+// Locked demo key — localStorage value "1" means signed in
+const SESSION_KEY = 'demo-session';
 
 // Mock session flag in localStorage
 export function isAuthenticated(): boolean {

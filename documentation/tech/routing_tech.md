@@ -21,11 +21,34 @@ Class: `features/router.ts`. Types: `types/router.d.ts`.
 
 Wire-up lives in `main.ts`: build the shell, pass the route table into `new Router({…})`, call `router.start()`.
 
+## Session
+
+Mock auth in `features/session.ts`:
+
+| Helper | Effect |
+|--------|--------|
+| `isAuthenticated()` | `localStorage.getItem('demo-session') === '1'` |
+| `login()` | sets `demo-session=1` |
+| `logout()` | removes the key |
+
+No backend.
+
+## Guards
+
+Defined in `main.ts`, called at the start of each route `mount`:
+
+| Helper | When allowed | Otherwise |
+|--------|--------------|-----------|
+| `requireAuth()` | session present | `navigate('/login', true)` |
+| `requireGuest()` | no session | `navigate('/feed', true)` |
+
+Return early from `mount` when the guard redirects.
+
 ## Routes
 
 | Path | Name | Guard |
 |------|------|-------|
-| `/` | root | redirect |
+| `/` | root | redirect to `/feed` or `/login` by session |
 | `/login` | login | guest |
 | `/feed` | feed | auth |
 | `/items` | items | auth |
@@ -33,10 +56,7 @@ Wire-up lives in `main.ts`: build the shell, pass the route table into `new Rout
 | `/search` | search | auth, reads `?q=` |
 | `/map-demo` | map-demo | auth, destroy demo |
 
-## Guards
-
-- `requireAuth` → `/login` replace
-- `requireGuest` → `/feed` replace
+`onChange` toggles `.app--auth` when `name === 'login'` (hides header) and updates header active/auth controls.
 
 ## appPath
 

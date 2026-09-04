@@ -29,7 +29,7 @@ Each page exports `getMarkup()` and `init({ navigate, params })`. Optional clean
 
 ## Session
 
-Demo auth is `localStorage` flag `portfolio-routing-session=1`. No backend.
+Demo auth is `localStorage` flag `demo-session=1`. No backend.
 
 ## Base path
 
