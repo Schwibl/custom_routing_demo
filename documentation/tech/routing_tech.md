@@ -58,6 +58,16 @@ Return early from `mount` when the guard redirects.
 
 `onChange` toggles `.app--auth` when `name === 'login'` (hides header) and updates header active/auth controls.
 
+## Params and route order
+
+- Patterns may include `:name` segments. Matched values land in `t_RouteParams` and are passed to `mount(params)`.
+- For `/items/:id`, the id must be **numeric** (`/^\d+$/`). `/items/abc` does not match and falls through to `fallbackPath`.
+- Register **more specific** patterns before less specific ones when lengths can collide (e.g. `/items/new` before `/items/:id`). This demo’s `/items` and `/items/:id` differ by segment count, so either order is safe; keep `/items/:id` after static siblings if you add any.
+
+## Query string
+
+Path matching ignores `?query`. Pages that need it read `window.location.search` in `init` (example: `/search?q=hello` → search page shows the query). `navigate('/search?q=…')` preserves search via the History API URL.
+
 ## appPath
 
 All router paths and links go through `appPath()` from `features/app-base.ts`.

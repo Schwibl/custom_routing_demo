@@ -157,8 +157,8 @@ class Router {
         const paramName = patternPart.slice(1);
         const value = decodeURIComponent(pathPart);
 
-        // Item ids must be numeric
-        if (paramName === 'id' && pattern.includes('/items/') && !/^\d+$/.test(value)) {
+        // /items/:id — reject non-numeric ids so match fails → fallback
+        if (paramName === 'id' && /\/items\/:id(?:\/|$)/.test(pattern) && !/^\d+$/.test(value)) {
           return null;
         }
 
