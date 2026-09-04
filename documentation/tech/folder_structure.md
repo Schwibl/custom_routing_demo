@@ -2,22 +2,27 @@
 
 ```
 portfolio_custom_routing/
-  vite.config.ts
-  package.json
-  frontend/
-    index.html
+  package.json          # scripts: dev, build, preview
+  package-lock.json
+  vite.config.ts        # root: frontend/, outDir: dist/
+  tsconfig.json
+  .env.example          # VITE_BASE_PATH=/
+  frontend/             # Vite root
+    index.html          # #app mount
     source/
       scripts/
-        main.ts
-        features/     router, session, app-base
-        blocks/       page UI + header
-        types/        .d.ts
+        main.ts         # entry; builds .app shell; imports ../styles/main.scss
+        features/       # router, session, app-base (later steps)
+        blocks/         # app-header.ts + page UI blocks
+        types/          # .d.ts (t_ prefix)
       styles/
-        main.scss
-        base/
-        blocks/
-  documentation/      tracked human docs
-  dist/                 build output (gitignored)
+        main.scss       # style entry
+        base/           # variables.scss, normalise.scss
+        blocks/         # app.scss, app-header.scss, *-page.scss (one file per BEM block)
+  documentation/        # tracked human docs
+  dist/                 # build output (gitignored)
 ```
 
-Vite root is `frontend/`. Entry imports SCSS from `main.ts`.
+Vite treats `frontend/` as the app root. Production assets land in repo-root `dist/`.
+
+Shell blocks: `.app` / `.app-header` styles under `styles/blocks/`; header markup helpers under `scripts/blocks/app-header.ts`. Guest routes use `.app--auth` to hide the header.

@@ -78,10 +78,12 @@ function bootstrap(): void {
     return;
   }
 
+  // Persistent BEM shell — pages mount into .app__main only
   appRoot.innerHTML = `
     <div class="app">
       ${getAppHeaderMarkup()}
       <main class="app__main"></main>
+      <footer class="app__footer">Custom routing demo</footer>
     </div>
   `;
 

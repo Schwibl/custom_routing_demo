@@ -11,6 +11,14 @@
     width: 100%;
   }
 
+  &__footer {
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-muted);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--font-base);
+  }
+
+  // Guest/login layout — hide chrome so the page owns the viewport
   &--auth {
     .app-header {
       display: none;

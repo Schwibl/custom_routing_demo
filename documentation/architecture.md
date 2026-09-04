@@ -4,12 +4,18 @@
 
 ```
 main.ts
-  ├── bootstrap shell (.app, header, .app__main)
+  ├── bootstrap shell (.app, .app-header, .app__main, .app__footer)
   ├── Router (features/router.ts)
   └── route table
         ├── guards (session.ts)
         └── page blocks (blocks/*-page.ts)
 ```
+
+## Shell
+
+- `.app` — flex column chrome; pages only replace `.app__main`
+- `.app-header` — Feed / Items / Search / Login–Logout (`href` + `data-route`)
+- `.app--auth` — guest layout; hides `.app-header` (login). Toggle in DevTools to verify.
 
 ## Router
 
