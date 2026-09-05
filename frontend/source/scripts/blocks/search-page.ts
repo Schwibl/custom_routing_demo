@@ -5,8 +5,8 @@ export const searchPage: t_PageBlock = {
       <section class="search-page">
         <h1 class="search-page__title">Search</h1>
         <form class="search-page__form" data-action="search-form">
-          <input class="search-page__input" name="q" type="search" placeholder="Query" />
-          <button class="search-page__button" type="submit">Search</button>
+          <input class="input" name="q" type="search" placeholder="Query" />
+          <button class="button button--accent button--with-text" type="submit">Search</button>
         </form>
         <p class="search-page__summary" data-slot="summary"></p>
         <ul class="search-page__results" data-slot="results"></ul>
@@ -18,10 +18,10 @@ export const searchPage: t_PageBlock = {
     const MOCK_HITS = ['Alpha module', 'Beta service', 'Gamma panel', 'Delta route', 'Epsilon guard'];
     const params = new URLSearchParams(window.location.search);
     const query = params.get('q') ?? '';
-    const input = document.querySelector<HTMLInputElement>('.search-page__input');
+    const form = document.querySelector<HTMLFormElement>('[data-action="search-form"]');
+    const input = form?.querySelector<HTMLInputElement>('input[name="q"]');
     const summary = document.querySelector<HTMLElement>('[data-slot="summary"]');
     const results = document.querySelector<HTMLElement>('[data-slot="results"]');
-    const form = document.querySelector<HTMLFormElement>('[data-action="search-form"]');
 
     if (input) {
       input.value = query;

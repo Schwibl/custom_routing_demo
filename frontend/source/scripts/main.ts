@@ -9,7 +9,7 @@ import { feedPage } from './blocks/feed-page';
 import { itemsPage } from './blocks/items-page';
 import { itemPage } from './blocks/item-page';
 import { searchPage } from './blocks/search-page';
-import { mapDemoPage } from './blocks/map-demo-page';
+import { cleanupDemoPage } from './blocks/cleanup-demo-page';
 
 // DOM refs
 const appRoot = document.querySelector<HTMLElement>('#app');
@@ -165,14 +165,14 @@ function bootstrap(): void {
       },
     },
     {
-      path: appPath('/map-demo'),
-      name: 'map-demo',
+      path: appPath('/cleanup-demo'),
+      name: 'cleanup-demo',
       mount: () => {
         if (!requireAuth()) {
           return;
         }
 
-        mountPage(mapDemoPage);
+        mountPage(cleanupDemoPage);
       },
       unmount: () => {
         if (activeCleanup) {

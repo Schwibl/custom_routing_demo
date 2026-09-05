@@ -4,11 +4,17 @@
   --color-text: #e8eaef;
   --color-muted: #9aa3b5;
   --color-accent: #f0a030;
+  --color-on-accent: #1a1208;
   --color-border: #2a3144;
+  --color-error: #c45c5c;
   --space-xs: 0.53vw;
   --space-sm: 1.07vw;
   --space-md: 2.13vw;
   --space-lg: 4.27vw;
+  // Control chrome — denser than panel --space-sm / --space-md (y ≈½ sm, x ≈¾ sm)
+  --space-control-y: 0.53vw;
+  --space-control-x: 0.8vw;
+  --radius-control: 0.27vw;
   --font-base: 1.07vw;
   --font-lg: 1.6vw;
   --font-xl: 2.13vw;
@@ -19,6 +25,10 @@
     --font-base: 2.4vw;
     --font-lg: 3.6vw;
     --font-xl: 4.8vw;
+    // Control tokens scale with type so tap targets hold on tablet
+    --space-control-y: 1.19vw;
+    --space-control-x: 1.79vw;
+    --radius-control: 0.6vw;
   }
 }
 
@@ -27,5 +37,9 @@
     --font-base: 3.6vw;
     --font-lg: 4.8vw;
     --font-xl: 6.4vw;
+    // Control tokens scale with type so tap targets hold on phone
+    --space-control-y: 1.78vw;
+    --space-control-x: 2.69vw;
+    --radius-control: 0.91vw;
   }
 }

@@ -10,7 +10,7 @@ export const feedPage: t_PageBlock = {
         <ul class="feed-page__links">
           <li><a class="feed-page__link" href="${appPath('/items')}">Browse items</a></li>
           <li><a class="feed-page__link" href="${appPath('/search')}">Search</a></li>
-          <li><a class="feed-page__link" href="${appPath('/map-demo')}">Map demo (destroy cleanup)</a></li>
+          <li><a class="feed-page__link" href="${appPath('/cleanup-demo')}">Cleanup demo (destroy on leave)</a></li>
         </ul>
       </section>
     `;

@@ -4,7 +4,7 @@ const SPA_ROUTE_SEGMENTS = new Set([
   'feed',
   'items',
   'search',
-  'map-demo',
+  'cleanup-demo',
 ]);
 
 let cachedBase: string | null = null;

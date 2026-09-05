@@ -16,6 +16,11 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+
+    // Layout only — chrome lives on shared .button
+    .button {
+      align-self: flex-start;
+    }
   }
 
   &__label {
@@ -23,23 +28,5 @@
     flex-direction: column;
     gap: var(--space-xs);
     color: var(--color-muted);
-  }
-
-  &__input {
-    padding: var(--space-sm);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    border-radius: 0.27vw;
-  }
-
-  &__button {
-    align-self: flex-start;
-    background: var(--color-accent);
-    color: #1a1208;
-    border: none;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: 0.27vw;
-    font-weight: 600;
   }
 }

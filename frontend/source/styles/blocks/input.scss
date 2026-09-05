@@ -1,0 +1,43 @@
+// Shared single-line field — compose from feature chrome; no feature__input padding/fill
+.input {
+  display: block;
+  width: 100%;
+  font-size: var(--font-base);
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  // 1px hairline border is an intentional non-vw exception
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  padding: var(--space-control-y) var(--space-control-x);
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--color-muted);
+  }
+
+  &:hover {
+    border-color: var(--color-muted);
+  }
+
+  &:focus {
+    border-color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    // 1px hairline focus ring is an intentional non-vw exception
+    outline: 1px solid var(--color-accent);
+    outline-offset: 0.14vw;
+  }
+
+  &:disabled {
+    color: var(--color-muted);
+    background: var(--color-bg);
+    cursor: not-allowed;
+  }
+
+  // Extra-tight density when a panel needs it
+  &--compact {
+    padding: calc(var(--space-control-y) / 2) calc(var(--space-control-x) / 2);
+  }
+}

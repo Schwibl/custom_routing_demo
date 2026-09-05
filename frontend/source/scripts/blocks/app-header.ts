@@ -2,6 +2,7 @@ import { appPath } from '../features/app-base';
 
 // App header with nav links (all hrefs go through appPath)
 export function getAppHeaderMarkup(): string {
+  // Logout keeps a word label: domain auth verb, not a conventional unicode chrome action
   return `
     <header class="app-header">
       <a class="app-header__brand" href="${appPath('/feed')}" data-route="feed">Routing demo</a>
@@ -9,9 +10,9 @@ export function getAppHeaderMarkup(): string {
         <a class="app-header__link" href="${appPath('/feed')}" data-route="feed">Feed</a>
         <a class="app-header__link" href="${appPath('/items')}" data-route="items">Items</a>
         <a class="app-header__link" href="${appPath('/search')}" data-route="search">Search</a>
-        <a class="app-header__link" href="${appPath('/map-demo')}" data-route="map-demo">Map demo</a>
+        <a class="app-header__link" href="${appPath('/cleanup-demo')}" data-route="cleanup-demo">Cleanup demo</a>
         <a class="app-header__link app-header__link--auth" href="${appPath('/login')}" data-route="login">Login</a>
-        <button type="button" class="app-header__logout app-header__link--hidden" data-action="logout">Logout</button>
+        <button type="button" class="button button--transparent button--with-text app-header__link--hidden" data-action="logout" aria-label="Log out">Logout</button>
       </nav>
     </header>
   `;

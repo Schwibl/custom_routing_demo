@@ -8,9 +8,9 @@ export const loginPage: t_PageBlock = {
         <form class="login-page__form" data-action="login-form">
           <label class="login-page__label">
             Email (stub)
-            <input class="login-page__input" type="email" name="email" value="demo@example.com" autocomplete="username" />
+            <input class="input" type="email" name="email" value="demo@example.com" autocomplete="username" />
           </label>
-          <button type="submit" class="login-page__button" data-action="login">Continue</button>
+          <button type="submit" class="button button--accent button--with-text" data-action="login">Continue</button>
         </form>
       </section>
     `;

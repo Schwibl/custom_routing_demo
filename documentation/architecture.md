@@ -18,6 +18,8 @@ main.ts ── styles, shell, flat route table, guards
            .app__main outlet
 ```
 
+Interactive controls (buttons, fields) compose shared `.button` / `.input` SCSS blocks under `styles/blocks/`. Feature page SCSS keeps layout only.
+
 ## Session guard flow
 
 ```

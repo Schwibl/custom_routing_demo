@@ -54,7 +54,7 @@ Return early from `mount` when the guard redirects.
 | `/items` | items | auth |
 | `/items/:id` | item | auth, numeric id |
 | `/search` | search | auth, reads `?q=` |
-| `/map-demo` | map-demo | auth, destroy demo |
+| `/cleanup-demo` | cleanup-demo | auth, destroy demo |
 
 `onChange` toggles `.app--auth` when `name === 'login'` (hides header) and updates header active/auth controls.
 
