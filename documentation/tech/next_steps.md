@@ -1,5 +1,6 @@
 # Next steps
 
-- 2026-09-01 — No real auth API; session is localStorage only.
-- 2026-09-01 — No Capacitor shell; web-only demo.
-- 2026-09-01 — GitHub Pages deploy script not added yet (use `npm run build` + static host).
+- 2026-09-04 — No real auth API; session is `localStorage` (`demo-session`) only.
+- 2026-09-04 — No Capacitor / native shell; web-only demo.
+- 2026-09-04 — No GitHub Pages (or other host) deploy script; use `npm run build` + static host with SPA fallback.
+- 2026-09-04 — Controls design update planned under `.prompts/design_update/` (shared `.button` / `.input`); not applied to UI yet.
