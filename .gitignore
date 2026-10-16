@@ -3,5 +3,7 @@ dist/
 .env
 .env.local
 .cursor/
-.prompts/
-AGENTS.md
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
