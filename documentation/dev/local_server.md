@@ -34,4 +34,4 @@ Route helpers: `appPath()` in `features/app-base.ts` — see [`routing_tech.md`]
 
 ## SPA fallback
 
-Vite dev and preview serve `index.html` for unknown paths — deep links work on refresh. Static hosts (nginx, GitHub Pages) need an equivalent rewrite; a Pages deploy script is not in this repo yet.
+Vite dev and preview serve `index.html` for unknown paths — deep links work on refresh. Vercel uses the rewrite in [`vercel.json`](../../vercel.json) (see [`docs/ci.md`](../../docs/ci.md)). Other static hosts need an equivalent rewrite.
