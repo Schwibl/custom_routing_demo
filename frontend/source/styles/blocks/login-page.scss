@@ -1,5 +1,7 @@
 .login-page {
-  max-width: 53vw;
+  // Cap the field; 53vw was ~760px on a 1440px desktop
+  max-width: 360px;
+  width: 100%;
   margin: 0 auto;
 
   &__title {

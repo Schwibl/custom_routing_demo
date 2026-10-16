@@ -10,6 +10,17 @@ import { itemsPage } from './blocks/items-page';
 import { itemPage } from './blocks/item-page';
 import { searchPage } from './blocks/search-page';
 import { cleanupDemoPage } from './blocks/cleanup-demo-page';
+import { notFoundPage } from './blocks/not-found-page';
+
+// Route name → tab title. Item uses the :id param instead
+const PAGE_TITLES: Record<string, string> = {
+  login: 'Sign in',
+  feed: 'Feed',
+  items: 'Items',
+  search: 'Search',
+  'cleanup-demo': 'Cleanup demo',
+  'not-found': 'Page not found',
+};
 
 // DOM refs
 const appRoot = document.querySelector<HTMLElement>('#app');
@@ -39,6 +50,26 @@ function mountPage(block: t_PageBlock, params: t_RouteParams = {}): void {
   if (typeof cleanup === 'function') {
     activeCleanup = cleanup;
   }
+
+  focusPageHeading();
+}
+
+// Move focus to the new page heading so keyboard and AT follow the route
+function focusPageHeading(): void {
+  const heading = pageOutlet()?.querySelector('h1');
+
+  if (!(heading instanceof HTMLElement)) {
+    return;
+  }
+
+  heading.tabIndex = -1;
+  heading.focus();
+}
+
+// Browser tab title for the active route
+function documentTitle(name: string, params: t_RouteParams): string {
+  const page = name === 'item' ? `Item ${params.id ?? ''}`.trim() : PAGE_TITLES[name];
+  return page ? `${page} · Custom routing demo` : 'Custom routing demo';
 }
 
 // Auth guard — redirect to login if no session
@@ -185,8 +216,16 @@ function bootstrap(): void {
 
   router = new Router({
     routes,
-    fallbackPath: appPath('/login'),
-    onChange: (_path, name) => {
+    notFound: {
+      path: '*',
+      name: 'not-found',
+      mount: () => {
+        mountPage(notFoundPage);
+      },
+    },
+    onChange: (_path, name, params) => {
+      document.title = documentTitle(name, params);
+
       // Guest chrome: hide header on login; show on authenticated routes
       document.querySelector('.app')?.classList.toggle('app--auth', name === 'login');
 

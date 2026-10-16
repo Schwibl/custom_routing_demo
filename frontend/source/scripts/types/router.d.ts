@@ -12,7 +12,7 @@ type t_Route = {
 // Router constructor options
 type t_RouterOptions = {
   routes: t_Route[];
-  fallbackPath: string;
+  notFound: t_Route;
   onChange?: (path: string, name: string, params: t_RouteParams) => void;
 };
 

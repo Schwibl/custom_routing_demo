@@ -13,9 +13,11 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-control);
   padding: var(--space-control-y) var(--space-control-x);
+  min-height: var(--control-size);
   cursor: pointer;
   box-sizing: border-box;
   text-align: center;
+  text-decoration: none;
 
   &:hover {
     border-color: var(--color-muted);

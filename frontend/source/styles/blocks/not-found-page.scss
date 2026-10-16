@@ -1,0 +1,10 @@
+.not-found-page {
+  &__title {
+    font-size: var(--font-xl);
+  }
+
+  &__text {
+    color: var(--color-muted);
+    margin-bottom: var(--space-md);
+  }
+}

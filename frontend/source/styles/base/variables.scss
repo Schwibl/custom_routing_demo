@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   --color-bg: #12141a;
   --color-surface: #1c2030;
   --color-text: #e8eaef;
@@ -18,6 +19,9 @@
   --font-base: 1.07vw;
   --font-lg: 1.6vw;
   --font-xl: 2.13vw;
+  // Hit-target floor. px, not vw: the floor is a physical size
+  --control-size: 36px;
+  --input-font-size: var(--font-base);
 }
 
 @media (max-width: 768px) {
@@ -41,5 +45,13 @@
     --space-control-y: 1.78vw;
     --space-control-x: 2.69vw;
     --radius-control: 0.91vw;
+  }
+}
+
+// 44px targets on touch and phone widths; 16px fields stop iOS focus zoom
+@media (max-width: 768px), (pointer: coarse) {
+  :root {
+    --control-size: 44px;
+    --input-font-size: max(16px, var(--font-base));
   }
 }
