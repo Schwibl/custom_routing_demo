@@ -12,7 +12,7 @@ export function getAppHeaderMarkup(): string {
         <a class="app-header__link" href="${appPath('/search')}" data-route="search">Search</a>
         <a class="app-header__link" href="${appPath('/cleanup-demo')}" data-route="cleanup-demo">Cleanup demo</a>
         <a class="app-header__link app-header__link--auth" href="${appPath('/login')}" data-route="login">Login</a>
-        <button type="button" class="button button--transparent button--with-text app-header__link--hidden" data-action="logout" aria-label="Log out">Logout</button>
+        <button type="button" class="button button--transparent button--with-text app-header__link--hidden" data-action="logout">Logout</button>
       </nav>
     </header>
   `;
@@ -24,8 +24,14 @@ export function setHeaderActive(routeName: string, isAuthed: boolean, onLogout: 
   const logoutBtn = document.querySelector<HTMLButtonElement>('[data-action="logout"]');
 
   links.forEach((link) => {
-    const name = link.getAttribute('data-route');
-    link.classList.toggle('app-header__link--active', name === routeName);
+    const isCurrent = link.getAttribute('data-route') === routeName;
+    link.classList.toggle('app-header__link--active', isCurrent);
+
+    if (isCurrent) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
   });
 
   if (logoutBtn && !logoutBtn.dataset.bound) {

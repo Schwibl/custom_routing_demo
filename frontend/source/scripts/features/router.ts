@@ -1,14 +1,14 @@
 // History API SPA router
 class Router {
   private routes: t_Route[];
-  private fallbackPath: string;
+  private notFound: t_Route;
   private onChange?: t_RouterOptions['onChange'];
   private activeRoute: t_Route | null = null;
   private started = false;
 
   constructor(options: t_RouterOptions) {
     this.routes = options.routes;
-    this.fallbackPath = options.fallbackPath;
+    this.notFound = options.notFound;
     this.onChange = options.onChange;
   }
 
@@ -21,7 +21,7 @@ class Router {
     this.started = true;
     window.addEventListener('popstate', this.handlePopState);
     document.addEventListener('click', this.handleLinkClick);
-    this.renderCurrentPath(true);
+    this.renderCurrentPath();
   }
 
   // Client navigate
@@ -55,7 +55,7 @@ class Router {
   }
 
   private handlePopState = (): void => {
-    this.renderCurrentPath(false);
+    this.renderCurrentPath();
   };
 
   // Intercept same-origin link clicks
@@ -104,27 +104,13 @@ class Router {
     this.navigate(url.pathname + url.search + url.hash);
   };
 
-  private renderCurrentPath(replaceOnFallback: boolean): void {
+  private renderCurrentPath(): void {
     const path = this.normalisePath(window.location.pathname);
-    const match = this.match(path);
-
-    if (!match) {
-      this.navigate(this.fallbackPath, replaceOnFallback);
-      return;
-    }
-
-    this.applyMatch(match);
+    this.applyMatch(this.match(path) ?? { route: this.notFound, params: {} });
   }
 
   private renderPath(path: string): void {
-    const match = this.match(path);
-
-    if (!match) {
-      this.navigate(this.fallbackPath, true);
-      return;
-    }
-
-    this.applyMatch(match);
+    this.applyMatch(this.match(path) ?? { route: this.notFound, params: {} });
   }
 
   private applyMatch(match: t_RouteMatch): void {
@@ -134,6 +120,11 @@ class Router {
 
     this.activeRoute = match.route;
     match.route.mount(match.params);
+
+    // A guard may navigate during mount; skip the abandoned route's callback
+    if (this.activeRoute !== match.route) {
+      return;
+    }
 
     const path = this.normalisePath(window.location.pathname);
     this.onChange?.(path, match.route.name, match.params);
