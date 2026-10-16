@@ -8,7 +8,7 @@ Class: `features/router.ts`. Types: `types/router.d.ts`.
 |-------|------|
 | `t_Route` | `path`, `name`, `mount(params)`, optional `unmount()` |
 | `t_RouteParams` | Named params from patterns like `/items/:id` |
-| `t_RouterOptions` | `routes`, `fallbackPath`, optional `onChange` |
+| `t_RouterOptions` | `routes`, `notFound`, optional `onChange` |
 | `start()` | Bind `popstate` + click listener; render current URL |
 | `navigate(to, replace?)` | `pushState` / `replaceState`, then mount match |
 | `match(pathname)` | First table hit via `matchPattern` |
@@ -16,8 +16,8 @@ Class: `features/router.ts`. Types: `types/router.d.ts`.
 ### Behaviour
 
 - **History API** only (not hash). Same-origin left-clicks on `<a>` are intercepted; modifier keys, `target`, `download`, hash-only, and cross-origin links keep the browser default.
-- On match change: call previous route `unmount` (if any), then `mount`, then `onChange`.
-- Unknown path → `fallbackPath`. Boot uses `replaceState` so `/nope` does not leave a history entry.
+- On match change: call previous route `unmount` (if any), then `mount`, then `onChange`. If `mount` navigates away (a guard), the outer `onChange` is skipped.
+- Unknown path mounts `notFound` and keeps the URL. `/` and the auth guards still use `replaceState`.
 
 Wire-up lives in `main.ts`: build the shell, pass the route table into `new Router({…})`, call `router.start()`.
 
@@ -56,12 +56,12 @@ Return early from `mount` when the guard redirects.
 | `/search` | search | auth, reads `?q=` |
 | `/cleanup-demo` | cleanup-demo | auth, destroy demo |
 
-`onChange` toggles `.app--auth` when `name === 'login'` (hides header) and updates header active/auth controls.
+`onChange` sets `document.title`, toggles `.app--auth` when `name === 'login'` (hides header), and updates header active/auth controls. The active nav link gets `aria-current="page"`. After a page mounts, focus moves to its `h1`. Unmatched paths (no table row) mount the not-found page.
 
 ## Params and route order
 
 - Patterns may include `:name` segments. Matched values land in `t_RouteParams` and are passed to `mount(params)`.
-- For `/items/:id`, the id must be **numeric** (`/^\d+$/`). `/items/abc` does not match and falls through to `fallbackPath`.
+- For `/items/:id`, the id must be **numeric** (`/^\d+$/`). `/items/abc` does not match and renders the not-found page. The URL stays `/items/abc`.
 - Register **more specific** patterns before less specific ones when lengths can collide (e.g. `/items/new` before `/items/:id`). This demo’s `/items` and `/items/:id` differ by segment count, so either order is safe; keep `/items/:id` after static siblings if you add any.
 
 ## Query string
@@ -74,7 +74,7 @@ Path matching ignores `?query`. Pages that need it read `window.location.search`
 
 **Rules**
 
-- Every route `path`, `fallbackPath`, `navigate(...)`, and in-app `<a href>` must use `appPath(...)`.
+- Every route `path`, `navigate(...)`, and in-app `<a href>` must use `appPath(...)`. `notFound.path` is not matched.
 - Page `ctx.navigate('/…')` is already wrapped with `appPath` in `main.ts`.
 - New top-level segments belong in `SPA_ROUTE_SEGMENTS` inside `app-base.ts` if you rely on pathname derivation helpers.
 

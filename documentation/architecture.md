@@ -29,7 +29,7 @@ mount(route)
   └── mountPage(block) → getMarkup + init
 ```
 
-Root `/` redirects to `/feed` or `/login` by session. Login page uses `.app--auth` (header hidden).
+Root `/` redirects to `/feed` or `/login` by session. Login page uses `.app--auth` (header hidden). An unmatched path mounts the not-found page and keeps the URL.
 
 ## Data flow
 
@@ -41,7 +41,7 @@ Router.match(pathname) → t_Route + t_RouteParams
         │
         ├── previous cleanup / route.unmount()
         ├── route.mount(params) → guards → mountPage(block)
-        └── onChange → .app--auth + header active / logout
+        └── onChange → title + .app--auth + header active / logout
 ```
 
 In-app links use `pushState`. Guards and `/` use `replaceState` so failed auth does not pollute history. Back from `/items/:id` returns to `/items`.

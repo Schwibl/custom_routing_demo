@@ -21,11 +21,14 @@ Lint is not a step. This repo has no ESLint config. Unit tests are not a step. T
 
 ## Playwright smoke
 
-This job installs dependencies the same way, installs Chromium, then `npm run e2e`. That command builds `dist/` and serves it on `127.0.0.1:4173` with `vite preview` (Vite falls back to `index.html` for unknown paths). Three tests then run against that local server:
+This job installs dependencies the same way, installs Chromium, then `npm run e2e`. That command builds `dist/` and serves it on `127.0.0.1:4173` with `vite preview` (Vite falls back to `index.html` for unknown paths). The smoke file then runs:
 
 1. `/` loads with no console errors and no uncaught exception. The sign-in heading is on the page.
 2. The main UI renders: the sign-in form, then the feed and the nav after **Continue**.
-3. The nav goes to the items list, a link opens `/items/1`, and a reload of that URL still shows the item. That is the deep-link check.
+3. The nav goes to the items list, a link opens `/items/1`, and a reload of that URL still shows the item.
+4. A cold `goto` of `/items/1` returns HTTP 200 and the SPA (sign-in when logged out, the item after a session). `vercel.json` still rewrites `/(.*)` to `/index.html`.
+5. An unknown path, including `/items/nope`, renders Page not found with Back home and keeps the URL.
+6. Controls are at least 36px tall on a 1440px viewport and 44px on a 390px viewport; the email field is at least 16px there. The login form is at most 360px wide.
 
 A new push to the same branch cancels the run that is still going.
 
